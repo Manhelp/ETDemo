@@ -25,7 +25,7 @@ namespace ET.Server
                 return;
             }
             
-            if(!Regex.IsMatch(request.Account.Trim(), @"^(?=.*[0-9].*)(?=.*[A-Z].*)(?=.*[a-z].*).{6,15}$"))
+            if(!Regex.IsMatch(request.Account.Trim(), @"^[a-zA-Z][a-zA-Z0-9_-]{4,16}$"))
             {
                 response.Error = ErrorCode.ERR_LoginAccountInvalid;
                 session.Disconnect().Coroutine();
