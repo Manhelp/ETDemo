@@ -35,7 +35,46 @@ namespace ET.Client
                 Log.Debug($"serverInfo:{serverInfo}");
             }
             
+            ServerInfoProto serverInfoProto = r2CGetServerInfos.ServerInfoList[0];
             
+            // 获取角色
+            C2R_GetRoles c2RGetRoles = C2R_GetRoles.Create();
+            c2RGetRoles.Account = account;
+            c2RGetRoles.Token = response.Token;
+            c2RGetRoles.ServerId = serverInfoProto.Id;
+            R2C_GetRoles r2CGetRoles = await clientSenderComponent.Call(c2RGetRoles) as R2C_GetRoles;
+            if (r2CGetRoles.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error($"获取角色 区服：{c2RGetRoles.ServerId} account:{account} Error:{r2CGetRoles.Error}");
+                return;
+            }
+
+            RoleInfoProto roleInfoProto = null;
+            if (r2CGetRoles.RoleInfoList.Count == 0)
+            {
+                // 创建角色
+                C2R_CreateRole c2RCreateRole = C2R_CreateRole.Create();
+                c2RCreateRole.Account = account;
+                c2RCreateRole.Token = response.Token;
+                c2RCreateRole.ServerId = serverInfoProto.Id;
+                c2RCreateRole.RoleName = r2CGetRoles.RoleInfoList[0].Name;
+                R2C_CreateRole r2CCreateRole = await clientSenderComponent.Call(c2RCreateRole) as R2C_CreateRole;
+                if (r2CCreateRole.Error != ErrorCode.ERR_Success)
+                {
+                    Log.Error($"创建角色失败 Error:{r2CCreateRole.Error}");
+                    return;
+                }
+                
+                roleInfoProto = r2CCreateRole.RoleInfo;
+            }
+            else
+            {
+                // 选择角色
+                roleInfoProto = r2CGetRoles.RoleInfoList[0];
+            }
+            
+            // enter map
+
             await EventSystem.Instance.PublishAsync(root, new LoginFinish());
         }
     }

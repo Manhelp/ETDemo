@@ -12,6 +12,7 @@ namespace ET
         public const int ResourcesLoader = 7;
 
         public const int LoginAccount = 20;        
+        public const int CreateRole = 21;
 
         public const int Max = 100; // 这个必须最大
     }

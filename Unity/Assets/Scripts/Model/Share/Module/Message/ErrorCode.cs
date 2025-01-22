@@ -21,6 +21,10 @@ namespace ET
         public const int ERR_LoginPasswordError = 200005;
         public const int ERR_AccountInBlackList = 200006;
         public const int ERR_TokenInvalid = 200007;
+        public const int ERR_RoleNameRepeatedly = 200008;
+        public const int ERR_RoleNameInvalid = 200009;
+        public const int ERR_DeleteRoleIdInvalid = 200010;
+        public const int ERR_DeleteRoleFailure = 200011;
         
     }
 }
