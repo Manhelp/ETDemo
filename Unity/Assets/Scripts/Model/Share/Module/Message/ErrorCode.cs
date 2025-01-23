@@ -25,6 +25,7 @@ namespace ET
         public const int ERR_RoleNameInvalid = 200009;
         public const int ERR_DeleteRoleIdInvalid = 200010;
         public const int ERR_DeleteRoleFailure = 200011;
+        public const int ERR_LoginGateError = 200012;
         
     }
 }

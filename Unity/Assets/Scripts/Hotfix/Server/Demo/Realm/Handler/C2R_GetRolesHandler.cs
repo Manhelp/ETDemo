@@ -1,11 +1,13 @@
-using NativeCollection.UnsafeType;
+
+using System.Collections.Generic;
 
 namespace ET.Server
 {
     [MessageSessionHandler(SceneType.Realm)]
+    [FriendOf(typeof(RoleInfo))]
     public class C2R_GetRolesHandler : MessageSessionHandler<C2R_GetRoles, R2C_GetRoles>
     {
-        protected override ETTask Run(Session session, C2R_GetRoles request, R2C_GetRoles response)
+        protected override async ETTask Run(Session session, C2R_GetRoles request, R2C_GetRoles response)
         {
             if (session.GetComponent<SessionLockingComponent>() != null)
             {
@@ -35,7 +37,7 @@ namespace ET.Server
                     {
                         foreach (var roleInfo in roleInfos)
                         {
-                            response.RoleInfoList.add(roleInfo.ToMessage());
+                            response.RoleInfoList.Add(roleInfo.ToMessage());
                             roleInfo?.Dispose();
                         }
                         roleInfos.Clear();

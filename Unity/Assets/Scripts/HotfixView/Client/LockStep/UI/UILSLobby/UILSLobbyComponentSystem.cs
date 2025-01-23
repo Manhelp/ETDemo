@@ -26,7 +26,7 @@ namespace ET.Client
 
         private static async ETTask EnterMap(this UILSLobbyComponent self)
         {
-            await EnterMapHelper.Match(self.Fiber());
+            await EnterGameHelper.Match(self.Fiber());
         }
         
         private static void Replay(this UILSLobbyComponent self)

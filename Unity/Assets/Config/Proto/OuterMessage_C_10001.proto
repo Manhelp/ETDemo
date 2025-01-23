@@ -28,20 +28,6 @@ message M2C_TestResponse // IResponse
 	string response = 4;
 }
 
-// ResponseType G2C_EnterMap
-message C2G_EnterMap // ISessionRequest
-{
-	int32 RpcId = 1;
-}
-
-message G2C_EnterMap // ISessionResponse
-{
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
-	/// 自己的UnitId
-	int64 MyId = 4;
-}
 
 message MoveInfo
 {
@@ -160,37 +146,6 @@ message R2C_Login // ISessionResponse
 	int64 GateId = 6;
 }
 
-// ResponseType R2C_LoginAccount
-message C2R_LoginAccount // ISessionRequest
-{
-	int32 RpcId = 1;
-	string  Account = 2;  // 帐号
-	string  Password = 3;  // 密码
-}
-
-message R2C_LoginAccount // ISessionResponse
-{
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
-	string Token = 4;
-}
-
-// ResponseType G2C_LoginGate
-message C2G_LoginGate // ISessionRequest
-{
-	int32 RpcId = 1;
-	int64 Key = 2;  // 帐号
-	int64 GateId = 3;
-}
-
-message G2C_LoginGate // ISessionResponse
-{
-	int32 RpcId = 1;
-	int32 Error = 2;
-	string Message = 3;
-	int64 PlayerId = 4;
-}
 
 message G2C_TestHotfixMessage // ISessionMessage
 {
@@ -255,6 +210,23 @@ message A2C_Disconnect // ISessionMessage
 	int32 RpcId = 1;
 	int32 Error = 2;
 	string Message = 3;
+}
+
+
+// ResponseType R2C_LoginAccount
+message C2R_LoginAccount // ISessionRequest
+{
+	int32 RpcId = 1;
+	string  Account = 2;  // 帐号
+	string  Password = 3;  // 密码
+}
+
+message R2C_LoginAccount // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	string Token = 4;
 }
 
 message ServerInfoProto
@@ -342,4 +314,56 @@ message R2C_DeleteRole // ISessionResponse
 	int32 Error = 91;
 	string Message = 92;
 	int64 RoleInfoId = 1;
+}
+
+// ResponseType R2C_GetRealmKey
+message C2R_GetRealmKey // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Token = 2;
+	string Account = 3;
+	int32 ServerId = 4;
+}
+
+message R2C_GetRealmKey // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	string Address = 4;
+	int64 Key = 5;
+	int64 GateId = 6;
+}
+
+// ResponseType G2C_LoginGate
+message C2G_LoginGate // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Account = 2;
+	int64 Key = 3;
+	int64 RoleId = 4;
+}
+
+message G2C_LoginGate // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 UnitId = 4;
+}
+
+
+// ResponseType G2C_EnterGame
+message C2G_EnterGame // ISessionRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2C_EnterGame // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	/// 自己的UnitId
+	int64 UnitId = 4;
 }

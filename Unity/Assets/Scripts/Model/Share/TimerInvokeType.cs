@@ -16,5 +16,6 @@
         
         public const int RoomUpdate = 301;
         public const int AccountCheckoutTime = 302;
+        public const int PlayerOfflineOutTime = 303;
     }
 }

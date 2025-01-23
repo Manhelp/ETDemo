@@ -189,3 +189,32 @@ message L2R_LoginAccountResponse // IResponse
 	int32 Error = 2;
 	string Message = 3;
 }
+
+// ResponseType G2L_DisconnectGameUnit
+message L2G_DisconnectGameUnit // IRequest
+{
+	int32 RpcId = 1;
+	string Account = 2;
+}
+
+message G2L_DisconnectGameUnit // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+// ResponseType L2G_AddLoginRecord
+message G2L_AddLoginRecord // IRequest
+{
+	int32 RpcId = 1;
+	string Account = 2;
+	int32 ServerId = 3;
+}
+
+message L2G_AddLoginRecord // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}

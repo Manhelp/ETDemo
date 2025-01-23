@@ -73,7 +73,29 @@ namespace ET.Client
                 roleInfoProto = r2CGetRoles.RoleInfoList[0];
             }
             
-            // enter map
+            // 获取RealmKey
+            C2R_GetRealmKey c2RGetRealmKey = C2R_GetRealmKey.Create();
+            c2RGetRealmKey.Account = account;
+            c2RGetRealmKey.Token = response.Token;
+            c2RGetRealmKey.ServerId = serverInfoProto.Id;
+            R2C_GetRealmKey r2CGetRealmKey = await clientSenderComponent.Call(c2RGetRealmKey) as R2C_GetRealmKey;
+            if (r2CGetRealmKey.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error($"获取 RealmKey Error:{r2CGetRealmKey.Error}");
+                return;
+            }
+            
+            // enter game map
+            NetClient2Main_LoginGame netClient2MainLogin =
+                    await clientSenderComponent.LoginGameAsync(account, r2CGetRealmKey.Key, roleInfoProto.Id, r2CGetRealmKey.Address);
+
+            if (netClient2MainLogin.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error($"进入游戏失败 Error:{netClient2MainLogin.Error}");
+                return;
+            }
+            
+            Log.Debug($"角色进入游戏成功 account:{account} roleId:{roleInfoProto.Id} address:{r2CGetRealmKey.Address}");
 
             await EventSystem.Instance.PublishAsync(root, new LoginFinish());
         }

@@ -12,7 +12,7 @@ namespace ET.Server
             root.AddComponent<CoroutineLockComponent>();
             root.AddComponent<ProcessInnerSender>();
             root.AddComponent<MessageSender>();
-            
+            root.AddComponent<LoginInfoManagerComponent>();
             
             await ETTask.CompletedTask;
         }
